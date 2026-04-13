@@ -54,6 +54,7 @@ if (process.env.MCP_TRANSPORT === "http") {
         transport.onclose = () => {
           if (transport.sessionId) transports.delete(transport.sessionId);
         };
+        try { await server.close(); } catch {}
         await server.connect(transport);
         await transport.handleRequest(req, res);
       } else {
